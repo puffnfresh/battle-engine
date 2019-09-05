@@ -78,13 +78,14 @@ export class Move {
   }
 
   public calculateDamage(sourceHero : Hero, targetHero : Hero) : number {
-    if (this.customDamageCalculator) {
-      return this.customDamageCalculator(sourceHero, targetHero)
-    }
     const attackDefenseRatio : number = sourceHero.getAttack() / targetHero.getDefense();
     const levelModifier : number = ((2.0 * sourceHero.getLevel()) / 5.0) + 2;
     let damage = ((levelModifier * this.power * attackDefenseRatio / 50) + 2)
-    return Math.floor(damage);
+    const result = Math.floor(damage);
+    if (this.customDamageCalculator) {
+      return this.customDamageCalculator(sourceHero, targetHero, result)
+    }
+    return result;
   }
 
   public getAdditionalStats() : LooseObject {
