@@ -30,6 +30,9 @@ export class Hero {
       this.health = config.health;
       this.maxHealth = config.health;
     }
+    if (config.maxHealth) {
+      this.maxHealth = config.maxHealth;
+    }
     if (config.effects) this.effects = config.effects.map((effect : LooseObject) => new EffectTurn(effect));
     if (config.moveSet) this.moveSet = config.moveSet.map((move : LooseObject) => new Move(move));
 
